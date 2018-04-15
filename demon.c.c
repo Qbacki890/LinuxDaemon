@@ -11,7 +11,7 @@
 #include <fcntl.h>
 #include <signal.h>
 
-#define _XOPEN_SOURCE ; //Nie pytajcie po co to jest xD(Po to zeby to na czerwono sie skompilowalo)
+#define _XOPEN_SOURCE ; 
 
 int recursion = 0; //1 if enabled, 0 if off
 int sleepTime = 300;
@@ -20,31 +20,8 @@ int signaL = 0;
 int buffer = 1000;
 
 
-//INSTRUKCJA
-/* Aby cokolwiek zrobic z demonem wpisujecie w konsole PS AUX 
-i szukacie PID demona
-1. Aby zamknac proces demona robicie KILL <pid demona>
-2. Aby mu sygnal wyslac uzywacie w konsoli kill -SIGUSR <pid demona>
-3.Wszystkie logi zapisuja sie w pliku z logisystemowe
 
-//Content of argv tab
-/**
- * argv[0] program name
- * argv[1] source path
- * argv[2] goal path
- * argv[3] -T 
- * argv[4] value of -T
- * argv[5] -R   for recursion without value
- * argv[6] -M 
- * argv[7] value for -M
- * example:
- * demon pathA pathB  -T 300 -R -M 20000
- * */
 
-//number-number of arguments in main function
-//argv - table with Strings- arguments from main function
-
-// example of use readArguments(argc,argv,source,goal)
 
 //Returns 0 if arguments are correct otherwise returns 1
 int readArguments(int number, char **argv, char *source, char *goal);
@@ -57,10 +34,10 @@ void my_handler(int sig);
 
 int main(int argc, char **argv)
 {
-    //char tables for paths(which must be checked later)
+    //char tables for paths
     char source[500], goal[500];
     struct stat Source, Goal;
-    struct sigaction my_action, old_action; //To sie kompiluje, spokojnie chłopaczki
+    struct sigaction my_action, old_action; 
 
     //checking and reading arguments
     if (readArguments(argc, argv, source, goal) == 1)
@@ -124,7 +101,7 @@ int main(int argc, char **argv)
         exit(-1);
     }
 
-    //TODO -SIGNAL SIGUSR1
+    //SIGNAL SIGUSR1
     my_action.sa_handler = my_handler;
     sigfillset(&my_action.sa_mask);
     my_action.sa_flags = 0;
