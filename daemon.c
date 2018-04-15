@@ -123,7 +123,7 @@ int main(int argc, char **argv)
         case 1:
             {
                 syslog(LOG_INFO, "Demon started working after SIGUSR1 signal\n");
-                signaL=0;//Trzeba ten sygnal zerowac zeby jendokrotne wyslanie nie powodowalo nieskonczonej petli w switch
+                signaL=0;//Need to reeset signaL
                 break;
             }
             
@@ -526,46 +526,4 @@ void my_handler(int sig)
     signaL = 1;
 }
 
-/*
- void my_handler(int sig)
- {
- 	sygnal=1;
- }
-*/
-/*
 
- 		my_action.sa_handler=my_handler;
- 		sigfillset(&my_action.sa_mask);
- 		my_action.sa_flags=0;
- 		if (sigaction(SIGINT,&my_action,&old_action)<0)
- 		{
- 			syslog(LOG_ERR, "Bład: Problem z obsluga sygnalu SIGUSR1\n");
- 			exit(-1);	
- 		}
-*/
-
-/**
- * 
- * if(lstat(sciezka_zrodlowa, &Zrodlo)!=0)
-//istnienie sciezki
-{
-printf("Sciezka zrodlowa %s nie istnieje\n",sciezka_zrodlowa);
-exit(-1);
-}
-if(lstat(sciezka_docelowa, &Cel)!=0)
-{
-printf("Sciezka docelowa %s nie istnieje\n",sciezka_docelowa);
-exit(-1);
-}
- * int rodzajPliku(struct stat plik)
-{
-if(S_ISDIR(plik.st_mode)) return 0; //katalog
-else
-if(S_ISREG(plik.st_mode)) return 1; //plik regularny
-else return -1;
-//ani plik, ani katalog
-}
- * 
- * 
- *
- *  */
