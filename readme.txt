@@ -1,4 +1,4 @@
 Authors:
-@ Piotr Juchimowicz
-@ Jakub Kalinowski
-@ Michal Kuc
+# Piotr Juchimowicz
+# Jakub Kalinowski
+# Michal Kuc
