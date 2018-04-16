@@ -349,19 +349,19 @@ int copy_map(char *source, char *target, struct stat *Source)
 
 void syncCopy(char *source, char *target)
 {
-    char src_tmp[500];
-    char trgt_tmp[500];
-    struct stat TRGT, SRC;
+    char src_tmp[500];          //source's path
+    char trgt_tmp[500];         //target's path
+    struct stat TRGT, SRC;      
     DIR *folder;
     struct dirent *dptr = malloc(sizeof(struct dirent));
     ;
-
+    //opening folder
     if ((folder = opendir(source)) == NULL)
     {
         syslog(LOG_ERR, "Unsuccesful attempt of opening file %s.\n", source);
         return;
     }
-
+    //reading folder
     while ((dptr = readdir(folder)) != NULL)
     {
         if ((strcmp(dptr->d_name, ".") == 0) || (strcmp(dptr->d_name, "..") == 0))
@@ -375,13 +375,13 @@ void syncCopy(char *source, char *target)
         strcat(trgt_tmp, "/");
         strcat(trgt_tmp, dptr->d_name);
 
-        lstat(src_tmp, &SRC);
-        if (checkFileType(SRC) > 0)
+        lstat(src_tmp, &SRC);  //checking paths
+        if (checkFileType(SRC) > 0)  //checking type of source
         {
-            if (lstat(trgt_tmp, &TRGT) == 0)
+            if (lstat(trgt_tmp, &TRGT) == 0) // file exists
             {
-                if (checkFileType(TRGT) > 0)
-                    if ((TRGT.st_mtime - SRC.st_mtime) < 0)
+                if (checkFileType(TRGT) > 0)  //checking type of target
+                    if ((TRGT.st_mtime - SRC.st_mtime) < 0) // file was modified
                     {
                         if ((fileLimit != 0) && (fileLimit > SRC.st_size))
                         {
@@ -433,7 +433,7 @@ void syncCopy(char *source, char *target)
                 }
             }
         }
-        if (checkFileType(SRC) == 0 && recursion)
+        if (checkFileType(SRC) == 0 && recursion) 
         {
             if (lstat(trgt_tmp, &TRGT) == 0)
             {
